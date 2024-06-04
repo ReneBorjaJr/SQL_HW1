@@ -37,7 +37,8 @@
 ## Queries
 ```sql
 -- Inner-Joins
--- Combines rows from two or more tables based on a related column between them. It returns only the rows where there is a match in both tables.
+-- Combines rows from two or more tables based on a related column between them.
+-- It returns only the rows where there is a match in both tables.
 mysql> SELECT *
     -> FROM transactions
     -> INNER JOIN customers
@@ -52,7 +53,8 @@ mysql> SELECT *
 +----------------+--------+-------------+-------------+------------+-----------+-------------+
 
 -- Left-Joins
--- Returns all rows from the left table, and the matched rows from the right table. If no match is found, NULL values are returned for columns from the right table.
+-- Returns all rows from the left table, and the matched rows from the right table.
+-- If no match is found, NULL values are returned for columns from the right table.
 mysql> SELECT *
     -> FROM transactions LEFT JOIN customers
     -> ON transactions.customer_id = customers.customer_id;
@@ -67,7 +69,8 @@ mysql> SELECT *
 +----------------+--------+-------------+-------------+------------+-----------+-------------+
 
 -- Right-Joins
--- Returns all rows from the right table, and the matched rows from the left table. If no match is found, NULL values are returned for columns from the left table.
+-- Returns all rows from the right table, and the matched rows from the left table.
+-- If no match is found, NULL values are returned for columns from the left table.
 mysql> SELECT *
     -> FROM transactions RIGHT JOIN customers
     -> ON transactions.customer_id = customers.customer_id;
@@ -120,7 +123,7 @@ mysql> Select a.customer_id, a.first_name, a.last_name,
 |           6 | Sheldon    | Plankton    |      10.00 | janitor       | 2023-01-07 |             5 |
 +-------------+------------+-------------+------------+---------------+------------+---------------+
 
--- anotrher example of self joins
+-- another example of self joins
 mysql> SELECT a.first_name, a.last_name,
     -> CONCAT(b.first_name, " ", b.last_name) AS "reports to"
     -> FROM employees AS a

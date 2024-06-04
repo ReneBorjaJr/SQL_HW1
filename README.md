@@ -138,3 +138,91 @@ mysql> SELECT a.first_name, a.last_name,
 | Spongebob  | Squarepants | Sandy Cheeks |
 | Squidward  | Tentacles   | Sandy Cheeks |
 +------------+-------------+--------------+
+
+-- Full Join
+-- A full join returns all rows when there is a match in either left or right table.
+-- If there is no match, NULL values are returned for columns where there is no match.
+-- MySQL does NOT support "FULL JOIN". Instead, use a "UNION" of "LEFT JOIN" and "RIGHT JOIN".
+mysql> SELECT
+    ->     c.customer_id,
+    ->     c.first_name,
+    ->     c.last_name,
+    ->     t.transaction_id,
+    ->     t.amount
+    -> FROM
+    ->     customers c
+    -> LEFT JOIN
+    ->     transactions t
+    -> ON
+    ->     c.customer_id = t.customer_id
+    ->
+    -> UNION
+    ->
+    -> SELECT
+    ->     c.customer_id,
+    ->     c.first_name,
+    ->     c.last_name,
+    ->     t.transaction_id,
+    ->     t.amount
+    -> FROM
+    ->     transactions t
+    -> RIGHT JOIN
+    ->     customers c
+    -> ON
+    ->     t.customer_id = c.customer_id;
++-------------+------------+-----------+----------------+--------+
+| customer_id | first_name | last_name | transaction_id | amount |
++-------------+------------+-----------+----------------+--------+
+|           1 | Fred       | Fish      |           1003 |   4.99 |
+|           2 | Larry      | Lobster   |           1001 |   2.89 |
+|           3 | Bubble     | Bass      |           1002 |   3.38 |
+|           3 | Bubble     | Bass      |           1000 |   4.99 |
+|           4 | Poppy      | Puff      |           NULL |   NULL |
++-------------+------------+-----------+----------------+--------+
+
+-- Cross Join
+A cross join returns the Cartesian product of the two tables, which means it returns all possible combinations of rows.
+mysql> SELECT
+    ->     e.employee_id,
+    ->     e.first_name,
+    ->     e.last_name,
+    ->     t.transaction_id,
+    ->     t.amount
+    -> FROM
+    ->     employees e
+    -> CROSS JOIN
+    ->     transactions t;
++-------------+------------+-------------+----------------+--------+
+| employee_id | first_name | last_name   | transaction_id | amount |
++-------------+------------+-------------+----------------+--------+
+|           1 | Eugene     | Krabs       |           1006 |   1.00 |
+|           1 | Eugene     | Krabs       |           1003 |   4.99 |
+|           1 | Eugene     | Krabs       |           1002 |   3.38 |
+|           1 | Eugene     | Krabs       |           1001 |   2.89 |
+|           1 | Eugene     | Krabs       |           1000 |   4.99 |
+|           2 | Squidward  | Tentacles   |           1006 |   1.00 |
+|           2 | Squidward  | Tentacles   |           1003 |   4.99 |
+|           2 | Squidward  | Tentacles   |           1002 |   3.38 |
+|           2 | Squidward  | Tentacles   |           1001 |   2.89 |
+|           2 | Squidward  | Tentacles   |           1000 |   4.99 |
+|           3 | Spongebob  | Squarepants |           1006 |   1.00 |
+|           3 | Spongebob  | Squarepants |           1003 |   4.99 |
+|           3 | Spongebob  | Squarepants |           1002 |   3.38 |
+|           3 | Spongebob  | Squarepants |           1001 |   2.89 |
+|           3 | Spongebob  | Squarepants |           1000 |   4.99 |
+|           4 | Patrick    | Star        |           1006 |   1.00 |
+|           4 | Patrick    | Star        |           1003 |   4.99 |
+|           4 | Patrick    | Star        |           1002 |   3.38 |
+|           4 | Patrick    | Star        |           1001 |   2.89 |
+|           4 | Patrick    | Star        |           1000 |   4.99 |
+|           5 | Sandy      | Cheeks      |           1006 |   1.00 |
+|           5 | Sandy      | Cheeks      |           1003 |   4.99 |
+|           5 | Sandy      | Cheeks      |           1002 |   3.38 |
+|           5 | Sandy      | Cheeks      |           1001 |   2.89 |
+|           5 | Sandy      | Cheeks      |           1000 |   4.99 |
+|           6 | Sheldon    | Plankton    |           1006 |   1.00 |
+|           6 | Sheldon    | Plankton    |           1003 |   4.99 |
+|           6 | Sheldon    | Plankton    |           1002 |   3.38 |
+|           6 | Sheldon    | Plankton    |           1001 |   2.89 |
+|           6 | Sheldon    | Plankton    |           1000 |   4.99 |
++-------------+------------+-------------+----------------+--------+

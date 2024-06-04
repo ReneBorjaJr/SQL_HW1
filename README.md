@@ -37,6 +37,7 @@
 ## Queries
 ```sql
 -- Inner-Joins
+-- Combines rows from two or more tables based on a related column between them. It returns only the rows where there is a match in both tables.
 mysql> SELECT *
     -> FROM transactions
     -> INNER JOIN customers
@@ -51,6 +52,7 @@ mysql> SELECT *
 +----------------+--------+-------------+-------------+------------+-----------+-------------+
 
 -- Left-Joins
+-- Returns all rows from the left table, and the matched rows from the right table. If no match is found, NULL values are returned for columns from the right table.
 mysql> SELECT *
     -> FROM transactions LEFT JOIN customers
     -> ON transactions.customer_id = customers.customer_id;
@@ -65,6 +67,7 @@ mysql> SELECT *
 +----------------+--------+-------------+-------------+------------+-----------+-------------+
 
 -- Right-Joins
+-- Returns all rows from the right table, and the matched rows from the left table. If no match is found, NULL values are returned for columns from the left table.
 mysql> SELECT *
     -> FROM transactions RIGHT JOIN customers
     -> ON transactions.customer_id = customers.customer_id;
@@ -79,6 +82,7 @@ mysql> SELECT *
 +----------------+--------+-------------+-------------+------------+-----------+-------------+
 
 -- Self-Joins
+-- Joins a table to itself. Useful for hierarchical data or comparing rows within the same table.
 mysql> SELECT *
     -> FROM customers AS a
     -> INNER JOIN customers AS b

@@ -35,10 +35,19 @@
 
 ```
 ## Queries
+### Analogy
+**Imagine you are organizing a party and you have two lists:**
+
+1. Guest List (customers)
+2. Gift List (transactions)
 ```sql
 -- Inner-Joins
 -- Combines rows from two or more tables based on a related column between them.
 -- It returns only the rows where there is a match in both tables.
+-- ANALOGY:
+-- You only invite guests who have confirmed that they will bring a gift.
+-- This means you get a list of only those guests who have registered a gift.
+
 mysql> SELECT *
     -> FROM transactions
     -> INNER JOIN customers
@@ -55,6 +64,10 @@ mysql> SELECT *
 -- Left-Joins
 -- Returns all rows from the left table, and the matched rows from the right table.
 -- If no match is found, NULL values are returned for columns from the right table.
+-- ANALOGY:
+-- You invite all the guests from your guest list, but you also check if they have confirmed bringing a gift.
+-- If they haven't, you note that they will not bring a gift (NULL).
+
 mysql> SELECT *
     -> FROM transactions LEFT JOIN customers
     -> ON transactions.customer_id = customers.customer_id;
@@ -71,6 +84,10 @@ mysql> SELECT *
 -- Right-Joins
 -- Returns all rows from the right table, and the matched rows from the left table.
 -- If no match is found, NULL values are returned for columns from the left table.
+-- ANALOGY:
+-- You check your gift list and ensure that every gift has a corresponding guest who is bringing it.
+-- If a gift does not have a corresponding guest, you note it as unknown (NULL).
+
 mysql> SELECT *
     -> FROM transactions RIGHT JOIN customers
     -> ON transactions.customer_id = customers.customer_id;
@@ -86,6 +103,10 @@ mysql> SELECT *
 
 -- Self-Joins
 -- Joins a table to itself. Useful for hierarchical data or comparing rows within the same table.
+-- ANALOGY:
+-- Imagine you have a list of employees, and you want to find out who supervises whom.
+-- You essentially need to compare the employees' list with itself to find the supervisors.
+
 mysql> SELECT *
     -> FROM customers AS a
     -> INNER JOIN customers AS b
@@ -143,6 +164,10 @@ mysql> SELECT a.first_name, a.last_name,
 -- A full join returns all rows when there is a match in either left or right table.
 -- If there is no match, NULL values are returned for columns where there is no match.
 -- MySQL does NOT support "FULL JOIN". Instead, use a "UNION" of "LEFT JOIN" and "RIGHT JOIN".
+-- ANALOGY:
+-- You invite all the guests from your guest list and also ensure every gift from your gift list has a corresponding guest.
+-- If a guest does not have a gift or if a gift does not have a corresponding guest, you note it as unknown (NULL).
+
 mysql> SELECT
     ->     c.customer_id,
     ->     c.first_name,
@@ -181,7 +206,10 @@ mysql> SELECT
 +-------------+------------+-----------+----------------+--------+
 
 -- Cross Join
-A cross join returns the Cartesian product of the two tables, which means it returns all possible combinations of rows.
+-- A cross join returns the Cartesian product of the two tables, which means it returns all possible combinations of rows.
+-- ANALOGY:
+-- You pair each guest with every gift, resulting in all possible combinations of guests and gifts, whether or not they actually match.
+
 mysql> SELECT
     ->     e.employee_id,
     ->     e.first_name,
